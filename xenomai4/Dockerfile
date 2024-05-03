@@ -1,3 +1,7 @@
+# container release
+# 24.04 is the latest Ubuntu as of May 3rd 2024
+ARG CONTAINER_RELEASE="22.04"
+
 # libevl release
 # r47 is the latest as of March 15th 2024
 ARG EVL_RELEASE="r47"
@@ -11,7 +15,7 @@ ARG EVL_STAGING_DIR="/libevl/staging"
 
 # Build in a separate stage, so build-time dependencies and source are
 # not included in the final container image
-FROM ubuntu:22.04 AS build
+FROM ubuntu:${CONTAINER_RELEASE} AS build
 
 ARG EVL_RELEASE
 ARG LINUX_HEADERS_VERSION
@@ -47,7 +51,7 @@ RUN mkdir build && cd build && \
     ninja install
 
 # Deploy only the build output to the final container image
-FROM ubuntu:22.04 AS deploy
+FROM ubuntu:${CONTAINER_RELEASE} AS deploy
 
 ARG EVL_STAGING_DIR
 
