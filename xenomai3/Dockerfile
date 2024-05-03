@@ -1,3 +1,7 @@
+# container release
+# 24.04 is the latest Ubuntu as of May 3rd 2024
+ARG CONTAINER_RELEASE="22.04"
+
 # xenomai release
 # 3.2.4 is the latest as of April 15th 2024
 ARG XENOMAI_RELEASE="v3.2.4"
@@ -7,7 +11,7 @@ ARG XENOMAI_STAGING_DIR="/xenomai/staging"
 
 # Build in a separate stage, so build-time dependencies and source are
 # not included in the final container image
-FROM ubuntu:22.04 AS build
+FROM ubuntu:${CONTAINER_RELEASE} AS build
 
 ARG XENOMAI_RELEASE
 ARG LINUX_HEADERS_VERSION
@@ -43,7 +47,7 @@ RUN ./scripts/bootstrap && \
     make DESTDIR=${XENOMAI_STAGING_DIR} install
 
 # Deploy only the build output to the final container image
-FROM ubuntu:22.04 AS deploy
+FROM ubuntu:${CONTAINER_RELEASE} AS deploy
 
 ARG XENOMAI_STAGING_DIR
 
