@@ -1,6 +1,6 @@
 # container release
 # 24.04 is the latest Ubuntu as of May 3rd 2024
-ARG CONTAINER_RELEASE="22.04"
+ARG CONTAINER_RELEASE="24.04"
 
 # libevl release
 # r50 is the latest as of Feb 7th 2025
@@ -30,18 +30,19 @@ RUN apt-get update && apt-get install -y \
     meson \
     ninja-build \
     libbpf-dev \
+    libatomic1 \
     && \
     rm -rf /var/lib/apt/lists/*
 
 # Download linux-evl source due to required UAPI headers
 WORKDIR /linux
 RUN wget -q "https://source.denx.de/Xenomai/xenomai4/linux-evl/-/archive/${LINUX_HEADERS_VERSION}/linux-evl-${LINUX_HEADERS_VERSION}.tar.bz2" && \
-    tar xvf "linux-evl-${LINUX_HEADERS_VERSION}.tar.bz2"
+    tar xf "linux-evl-${LINUX_HEADERS_VERSION}.tar.bz2"
 
 # Download libevl source
 WORKDIR /libevl
 RUN wget -q "https://source.denx.de/Xenomai/xenomai4/libevl/-/archive/${EVL_RELEASE}/libevl-${EVL_RELEASE}.tar.bz2" && \
-    tar xvf "libevl-${EVL_RELEASE}.tar.bz2"
+    tar xf "libevl-${EVL_RELEASE}.tar.bz2"
 
 # Build and install to staging directory
 RUN mkdir build && cd build && \
@@ -63,7 +64,7 @@ ARG EVL_STAGING_DIR
 RUN apt-get update && apt-get install -y \
     rt-tests \
     libatomic1 \
-    libbpf0 \
+    libbpf1 \
     && \
     rm -rf /var/lib/apt/lists/*
 
