@@ -3,12 +3,12 @@
 ARG CONTAINER_RELEASE="22.04"
 
 # libevl release
-# r47 is the latest as of March 15th 2024
-ARG EVL_RELEASE="r47"
+# r50 is the latest as of Feb 7th 2025
+ARG EVL_RELEASE="r50"
 
 # Kernel headers because libevl requires it
-# building for SLTS kernel 5.10.y as of March 15th 2024
-ARG LINUX_HEADERS_VERSION="v5.10.209-evl1-rebase"
+# building for LTS kernel 6.6.y as of Feb 7th 2025
+ARG LINUX_HEADERS_VERSION="v6.6.69-evl1-rebase"
 
 # libevl staging directory
 ARG EVL_STAGING_DIR="/libevl/staging"
@@ -25,8 +25,12 @@ ARG EVL_STAGING_DIR
 RUN apt-get update && apt-get install -y \
     wget \
     build-essential \
+    pkg-config \
+    cmake \
     meson \
-    ninja-build && \
+    ninja-build \
+    libbpf-dev \
+    && \
     rm -rf /var/lib/apt/lists/*
 
 # Download linux-evl source due to required UAPI headers
@@ -58,7 +62,9 @@ ARG EVL_STAGING_DIR
 # Install runtime dependencies and useful tools
 RUN apt-get update && apt-get install -y \
     rt-tests \
-    libatomic1 && \
+    libatomic1 \
+    libbpf0 \
+    && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the build artifacts from the staging directory
