@@ -1,10 +1,10 @@
 # container release
 # 24.04 is the latest Ubuntu as of May 3rd 2024
-ARG CONTAINER_RELEASE="22.04"
+ARG CONTAINER_RELEASE="24.04"
 
 # xenomai release
-# 3.2.4 is the latest as of April 15th 2024
-ARG XENOMAI_RELEASE="v3.2.4"
+# 3.2.6 is the latest as of February 9th 2025
+ARG XENOMAI_RELEASE="v3.2.6"
 
 # libs staging directory
 ARG XENOMAI_STAGING_DIR="/xenomai/staging"
