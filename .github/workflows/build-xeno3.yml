@@ -1,4 +1,4 @@
-name: Build and Push libevl Docker Image
+name: Build and Push Xenomai 3 Docker Image
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
     tags:
       - "v*"
     paths:
-      - "xenomai4/**"
+      - "xenomai3/**"
   pull_request:
     branches:
       - main
     paths:
-      - "xenomai4/**"
+      - "xenomai3/**"
 
 jobs:
   build-and-push:
@@ -29,9 +29,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Extract EVL_RELEASE from Dockerfile
+      - name: Extract XENOMAI_RELEASE from Dockerfile
         id: extract_version
-        run: echo "EVL_RELEASE=$(grep '^ARG EVL_RELEASE=' xenomai4/Dockerfile | cut -d'=' -f2 | tr -d '"')" >> $GITHUB_ENV
+        run: echo "XENOMAI_RELEASE=$(grep '^ARG XENOMAI_RELEASE=' xenomai3/Dockerfile | cut -d'=' -f2 | tr -d '"')" >> $GITHUB_ENV
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -47,9 +47,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: xenomai4
-          file: xenomai4/Dockerfile
+          context: xenomai3
+          file: xenomai3/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            leograba/libevl:${{ env.EVL_RELEASE }}
+            leograba/xeno3:${{ env.XENOMAI_RELEASE }}

@@ -7,7 +7,7 @@ Container images for Xenomai tools.
 How to run the pre-built image:
 
 ```bash
-docker run --privileged --rm -it -v /dev:/dev leograba/libevl:ubuntu-22.04 bash
+docker run --privileged --rm -it -v /dev:/dev leograba/libevl:r50
 ```
 
 Then you can run `evl`, `latmus`, and `hectic` from the container shell.
@@ -17,7 +17,7 @@ Then you can run `evl`, `latmus`, and `hectic` from the container shell.
 How to run the pre-built image:
 
 ```bash
-docker run --privileged --rm -it -v /dev:/dev leograba/xeno3:ubuntu-22.04 bash
+docker run --privileged --rm -it -v /dev:/dev leograba/xeno3:v3.2.6 bash
 ```
 
 Then you can run the tools from the container shell.
