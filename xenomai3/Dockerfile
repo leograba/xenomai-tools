@@ -3,8 +3,8 @@
 ARG CONTAINER_RELEASE="24.04"
 
 # xenomai release
-# 3.2.6 is the latest as of February 9th 2025
-ARG XENOMAI_RELEASE="v3.2.6"
+# 3.3 is the latest as of February 9th 2025
+ARG XENOMAI_RELEASE="v3.3"
 
 # libs staging directory
 ARG XENOMAI_STAGING_DIR="/xenomai/staging"
